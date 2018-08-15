@@ -1,13 +1,13 @@
 var express = require("express");
 var router = express.Router();
-var Campground = require("../models/campground");
+var Item = require("../models/item");
 
 router.get("/", function(req, res){
-    Campground.find({}, function(err, campgrounds){
+    Item.find({}, function(err, items){
        if (err) {
            console.log(err);
        } else {
-           res.render("campgrounds/index", {campgrounds: campgrounds});
+           res.render("items/index", {items: items});
        }
     });
 });
@@ -20,26 +20,26 @@ router.post("/", isLoggedIn, function(req, res){
         id: req.user._id,
         username: req.user.username
     };
-    var newCampground = {name: name, image: img, description: descrip, author: author};
-    Campground.create(newCampground, function(err, newlyCreated){
+    var newItem = {name: name, image: img, description: descrip, author: author};
+    Item.create(newItem, function(err, newlyCreated){
         if (err) {
             console.log(err);  
         } else {
-            res.redirect("/campgrounds"); 
+            res.redirect("/items"); 
         }
     });
 });
 
 router.get("/new", isLoggedIn, function(req, res){
-    res.render("campgrounds/new"); 
+    res.render("items/new"); 
 });
 
 router.get("/:id", function(req, res){
-    Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
+    Item.findById(req.params.id).populate("comments").exec(function(err, foundItem){
        if (err) {
            console.log(err);
        } else {
-           res.render("campgrounds/show", {campground: foundCampground});
+           res.render("items/show", {item: foundItem});
        }
     });
 });

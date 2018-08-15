@@ -2,14 +2,14 @@
 
 <div class="container">
     <div class="row">
-        <h1>Create a New Comment to <%= campground.name %></h1>
+        <h1>Create a New Comment to <%= item.name %></h1>
         
-        <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
+        <form action="/items/<%= item._id %>/comments" method="POST">
             <input class="form-control" type="text" placeholder="text" name="comment[text]">
             <button class="btn btn-lg btn-default">Submit!</button>
         </form>
         
-        <a href="/campgrounds">Go Back</a>
+        <a href="/items">Go Back</a>
     </div>
 </div>
 

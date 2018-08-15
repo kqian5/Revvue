@@ -2,7 +2,7 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
-var Campground = require("./models/campground");
+var Item = require("./models/item");
 var Comment = require("./models/comment");
 var passport = require("passport");
 var LocalStrategy = require("passport-local");
@@ -10,11 +10,11 @@ var User = require("./models/user");
 var seedDB = require("./seed");
 
 var commentRoutes = require("./routes/comments"),
-    campgroundRoutes = require("./routes/campgrounds"),
+    itemRoutes = require("./routes/items"),
     indexRoutes = require("./routes/index");
 
 
-mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect("mongodb://localhost/revvue");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -36,8 +36,8 @@ app.use(function(req, res, next){
    next();
 });
 
-app.use("/campgrounds", campgroundRoutes);
-app.use("/campgrounds/:id/comments", commentRoutes);
+app.use("/items", itemRoutes);
+app.use("/items/:id/comments", commentRoutes);
 app.use(indexRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function(){
